@@ -7,8 +7,8 @@ namespace Skelecortex.Synchronization
 {
     internal sealed class SyncCoordinator
     {
-        private readonly object _syncRoot;
         private readonly Queue<WeakReference<SyncContext>> _awaiting = new Queue<WeakReference<SyncContext>>();
+        private readonly object _syncRoot;
         private WeakReference<SyncContext> _heldBy;
         private volatile int _acquireCount;
 
