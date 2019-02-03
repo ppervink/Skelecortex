@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skelecortex.Synchronization", "Skelecortex.Synchronization\Skelecortex.Synchronization.csproj", "{117DC009-2045-4F7E-94B1-1F3C86204309}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skelecortex.Plumbing", "Skelecortex.Plumbing\Skelecortex.Plumbing.csproj", "{E3455585-2B91-443B-AA93-BC89AFEF54EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{117DC009-2045-4F7E-94B1-1F3C86204309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{117DC009-2045-4F7E-94B1-1F3C86204309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{117DC009-2045-4F7E-94B1-1F3C86204309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3455585-2B91-443B-AA93-BC89AFEF54EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3455585-2B91-443B-AA93-BC89AFEF54EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3455585-2B91-443B-AA93-BC89AFEF54EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3455585-2B91-443B-AA93-BC89AFEF54EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
