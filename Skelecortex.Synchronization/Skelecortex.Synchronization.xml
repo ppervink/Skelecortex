@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skelecortex.Synchronization</name>
+    </assembly>
+    <members>
+        <member name="T:Skelecortex.Synchronization.ISyncContext">
+            <summary>
+            Provides a context in which acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>
+            instances can share a lock on an object.
+            </summary>
+            <remarks>
+            This is intended for when two independent tasks accomplish
+            non-conflicting actions in the same synchronization-sensitive
+            area at the same time within the context of a larger task.
+            </remarks>
+        </member>
+        <member name="P:Skelecortex.Synchronization.ISyncContext.IsDisposed">
+            <summary>
+            Gets a value indicating whether or not the context has been disposed.
+            </summary>
+        </member>
+        <member name="P:Skelecortex.Synchronization.ISyncContext.Manager">
+            <summary>
+            Gets the synchronization manager used to coordinate wcope acquisition and 
+            blocking for this instance.
+            </summary>
+        </member>
+        <member name="M:Skelecortex.Synchronization.ISyncContext.Acquire(System.Object)">
+            <summary>
+            Acquires an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within this context for
+            the specified <paramref name="syncRoot"/>. See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for
+            more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <returns>The <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</returns>
+        </member>
+        <member name="M:Skelecortex.Synchronization.ISyncContext.TryAcquire(System.Object,System.Int32,Skelecortex.Synchronization.ISyncScope@)">
+            <summary>
+            Attempts to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within this context for the specified
+            <paramref name="syncRoot"/> within the specified <paramref name="timeout"/>.
+            See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <param name="timeout">The time, in milliseconds, to wait for the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> to be acquired (<see cref="F:System.Threading.Timeout.Infinite"/> to wait indefinitely).</param>
+            <param name="syncScope">If successful, returns the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</param>
+            <returns>
+            True if the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> was acquired within the specified timeout (and returned in <paramref name="syncScope"/>);
+            False if the <paramref name="timeout"/> elapsed before acquisition was possible or this instance was disposed while 
+            awaiting acquisition (and <paramref name="syncScope"/> is set to null)
+            </returns>
+        </member>
+        <member name="T:Skelecortex.Synchronization.ISyncManager">
+            <summary>
+            Manages synchronization for multiple active <see cref="T:Skelecortex.Synchronization.ISyncContext"/> instances and
+            their associated active <see cref="T:Skelecortex.Synchronization.ISyncScope"/> instances.
+            </summary>
+        </member>
+        <member name="M:Skelecortex.Synchronization.ISyncManager.Acquire(System.Object)">
+            <summary>
+            Acquires an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within its own <see cref="T:Skelecortex.Synchronization.ISyncContext"/> for
+            the specified <paramref name="syncRoot"/>. See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for
+            more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <returns>The <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</returns>
+        </member>
+        <member name="M:Skelecortex.Synchronization.ISyncManager.CreateContext">
+            <summary>
+            Creates a <see cref="T:Skelecortex.Synchronization.ISyncContext"/> in which multiple tasks
+            share the right to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for the same
+            object at the same time.
+            </summary>
+            <returns>
+            An <see cref="T:Skelecortex.Synchronization.ISyncContext"/> in which multiple tasks
+            share the right to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for the same
+            object at the same time.
+            </returns>
+        </member>
+        <member name="M:Skelecortex.Synchronization.ISyncManager.TryAcquire(System.Object,System.Int32,Skelecortex.Synchronization.ISyncScope@)">
+            <summary>
+            Attempts to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within its own <see cref="T:Skelecortex.Synchronization.ISyncContext"/> for 
+            the specified <paramref name="syncRoot"/> within the specified <paramref name="timeout"/>.
+            See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <param name="timeout">The time, in milliseconds, to wait for the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> to be acquired (<see cref="F:System.Threading.Timeout.Infinite"/> to wait indefinitely).</param>
+            <param name="syncScope">If successful, returns the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</param>
+            <returns>
+            True if the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> was acquired within the specified timeout (and returned in <paramref name="syncScope"/>);
+            False if the <paramref name="timeout"/> elapsed before acquisition was possible (and <paramref name="syncScope"/> is set to null).
+            </returns>
+        </member>
+        <member name="T:Skelecortex.Synchronization.ISyncScope">
+            <summary>
+            Represents a blocking synchronization scope for a given <see cref="P:Skelecortex.Synchronization.ISyncScope.SyncRoot"/>. 
+            Any attempt to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> outside of the given 
+            <see cref="P:Skelecortex.Synchronization.ISyncScope.Context"/> will be blocked by the <see cref="P:Skelecortex.Synchronization.ISyncContext.Manager"/>
+            until this instance is disposed (or garbage collected, if a finalizer is implemented).
+            Upon release, the next awaiting (or future) acquisition within the <see cref="P:Skelecortex.Synchronization.ISyncContext.Manager"/>
+            for the given <see cref="P:Skelecortex.Synchronization.ISyncScope.Context"/> will be allowed to proceed.
+            </summary>
+            <remarks>
+            This synchronization scope is thread-independent.  Unlike "thread" synchronization models, this
+            "context" synchronization model allows a scope to be acquired in one thread, but released within
+            another allowing for asynchronous sub-tasks under a given scope without a blocking owner thread.
+            In practice, a Finalizer should be implemented for any implementers of this interface to ensure
+            any blocking threads are properly un-blocked.
+            </remarks>
+        </member>
+        <member name="P:Skelecortex.Synchronization.ISyncScope.Context">
+            <summary>
+            Gets the <see cref="T:Skelecortex.Synchronization.ISyncContext"/> under which this scope was acquired.
+            </summary>
+        </member>
+        <member name="P:Skelecortex.Synchronization.ISyncScope.SyncRoot">
+            <summary>
+            Gets the synchronization root.
+            </summary>
+        </member>
+        <member name="P:Skelecortex.Synchronization.ISyncScope.IsDisposed">
+            <summary>
+            Gets a value indicating whether or not this instance has been disposed.
+            </summary>
+            <remarks>
+            This should be checked when the lifetime of the <see cref="P:Skelecortex.Synchronization.ISyncScope.Context"/> cannot
+            be guaranteed to be longer than the lifetime of this instance.  If true, best
+            practice would be that no further modifications be made to the resources 
+            synchronized by this scope.
+            </remarks>
+        </member>
+        <member name="T:Skelecortex.Synchronization.SyncManager">
+            <summary>
+            Manages synchronization for multiple active <see cref="T:Skelecortex.Synchronization.ISyncContext"/> instances and
+            their associated active <see cref="T:Skelecortex.Synchronization.ISyncScope"/> instances.
+            </summary>
+        </member>
+        <member name="M:Skelecortex.Synchronization.SyncManager.Acquire(System.Object)">
+            <summary>
+            Acquires an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within its own <see cref="T:Skelecortex.Synchronization.ISyncContext"/> for
+            the specified <paramref name="syncRoot"/>. See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for
+            more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <returns>The <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</returns>
+        </member>
+        <member name="M:Skelecortex.Synchronization.SyncManager.TryAcquire(System.Object,System.Int32,Skelecortex.Synchronization.ISyncScope@)">
+            <summary>
+            Attempts to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> within its own <see cref="T:Skelecortex.Synchronization.ISyncContext"/> for 
+            the specified <paramref name="syncRoot"/> within the specified <paramref name="timeout"/>.
+            See <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for more information on the blocking behavior of an acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/>.
+            </summary>
+            <param name="syncRoot">
+            An object used to identify the resource for which the acquired <see cref="T:Skelecortex.Synchronization.ISyncScope"/> 
+            will provide synchronization.
+            </param>
+            <param name="timeout">The time, in milliseconds, to wait for the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> to be acquired (<see cref="F:System.Threading.Timeout.Infinite"/> to wait indefinitely).</param>
+            <param name="syncScope">If successful, returns the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> that was acquired.</param>
+            <returns>
+            True if the <see cref="T:Skelecortex.Synchronization.ISyncScope"/> was acquired within the specified timeout (and returned in <paramref name="syncScope"/>);
+            False if the <paramref name="timeout"/> elapsed before acquisition was possible (and <paramref name="syncScope"/> is set to null).
+            </returns>
+        </member>
+        <member name="M:Skelecortex.Synchronization.SyncManager.CreateContext">
+            <summary>
+            Creates a <see cref="T:Skelecortex.Synchronization.ISyncContext"/> in which multiple tasks
+            share the right to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for the same
+            object at the same time.
+            </summary>
+            <returns>
+            An <see cref="T:Skelecortex.Synchronization.ISyncContext"/> in which multiple tasks
+            share the right to acquire an <see cref="T:Skelecortex.Synchronization.ISyncScope"/> for the same
+            object at the same time.
+            </returns>
+        </member>
+    </members>
+</doc>

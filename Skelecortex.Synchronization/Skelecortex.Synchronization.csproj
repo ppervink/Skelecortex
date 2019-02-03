@@ -7,6 +7,17 @@
     <Description>Library of synchronization lock functionalty.</Description>
     <Copyright>2019 Paul Pervinkler</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>http://github.com/ppervink/Skelecortex</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Paul\Documents\Visual Studio 2017\Projects\Skelecortex\Skelecortex.Synchronization\Skelecortex.Synchronization.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Paul\Documents\Visual Studio 2017\Projects\Skelecortex\Skelecortex.Synchronization\Skelecortex.Synchronization.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
